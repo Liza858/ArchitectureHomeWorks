@@ -91,18 +91,24 @@ public class Parser {
         return true;
     }
 
-    // Принимает строку и удаляет кавычки -- двойные и одинарные. Если кавычек
-    // (тех или других) нечетное количество, то возвращается null, так как
+    // Принимает строку и удаляет кавычки -- двойные и одинарные, если это возможно. Если кавычек
+    // (тех или других) нечетное количество (не считая кавычки внутри одинарных), то возвращается null, так как
     // считается, что в этом случае выражение -- неверное.
     public String removeQuoting(String line) {
         int counter1 = 0;
         int counter2 = 0;
+        boolean isOpen = false;
         String newLine = "";
         for (char c : line.toCharArray()) {
             if (c == '\'') {
                 counter1 += 1;
+                isOpen = !isOpen;
             } else if (c == '\"') {
-                counter2 += 1;
+                if (isOpen) {
+                    newLine += c;
+                } else {
+                    counter2 += 1;
+                }
             } else {
                 newLine += c;
             }
@@ -112,4 +118,5 @@ public class Parser {
         }
         return newLine;
     }
+
 }
