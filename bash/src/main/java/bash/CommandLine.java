@@ -1,6 +1,9 @@
 package bash;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 // Класс командной строки. Считывает новые команды и выводит их результат.
@@ -22,20 +25,20 @@ public class CommandLine {
     // результат обработки команды -- строка, которая выводится
     // в интерпретатор. Цикл останавлиается вызовом метода exit().
     public void run() throws IOException {
-        Scanner in = new Scanner(System.in);
         execute = true;
         System.out.printf("> ");
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         while (execute) {
-            String newLine = in.nextLine();
-            if (!newLine.isEmpty()) {
-                String result = linesExec.execute(newLine);
-                if (!result.equals("")) {
-                    System.out.println(result);
-                }
-                if (result.equals("exit")) {
-                    exit();
-                }
-            }
+                 String newLine = in.readLine();
+                 if (!newLine.isEmpty()) {
+                     String result = linesExec.execute(newLine);
+                     if (!result.equals("")) {
+                         System.out.println(result);
+                     }
+                     if (result.equals("exit")) {
+                         exit();
+                     }
+                 }
             System.out.printf("> ");
         }
     }
