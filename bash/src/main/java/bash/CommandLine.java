@@ -27,9 +27,12 @@ public class CommandLine {
     public void run() throws IOException {
         execute = true;
         System.out.printf("> ");
-        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        Scanner in = new Scanner(System.in);
         while (execute) {
-                 String newLine = in.readLine();
+                 if (!in.hasNext()) {
+                     continue;
+                 }
+                 String newLine = in.nextLine();
                  if (!newLine.isEmpty()) {
                      String result = linesExec.execute(newLine);
                      if (!result.equals("")) {
@@ -37,6 +40,7 @@ public class CommandLine {
                      }
                      if (result.equals("exit")) {
                          exit();
+                         break;
                      }
                  }
             System.out.printf("> ");
