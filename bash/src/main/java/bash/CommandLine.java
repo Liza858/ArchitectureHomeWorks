@@ -26,20 +26,20 @@ public class CommandLine {
         System.out.printf("> ");
         Scanner in = new Scanner(System.in);
         while (execute) {
-                 if (!in.hasNext()) {
-                     continue;
-                 }
-                 String newLine = in.nextLine();
-                 if (!newLine.isEmpty()) {
-                     String result = linesExec.execute(newLine);
-                     if (!result.equals("")) {
-                         System.out.println(result);
-                     }
-                     if (result.equals("exit")) {
-                         exit();
-                         break;
-                     }
-                 }
+            if (!in.hasNext()) {
+                continue;
+            }
+            String newLine = in.nextLine();
+            if (!newLine.isEmpty()) {
+                String result = linesExec.execute(newLine);
+                if (!result.equals("")) {
+                    System.out.println(result);
+                }
+                if (result.equals("exit")) {
+                    exit();
+                    break;
+                }
+            }
             System.out.printf("> ");
         }
     }
