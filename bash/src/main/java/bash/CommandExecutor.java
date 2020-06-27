@@ -206,11 +206,11 @@ public class CommandExecutor {
         BufferedReader errorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
         String line;
         while ((line = errorReader.readLine()) != null) {
-            result.append(line);
+            result.append(line + "\n");
         }
         BufferedReader reader = new BufferedReader(new InputStreamReader(process.getInputStream()));
         while ((line = reader.readLine()) != null) {
-            result.append(line);
+            result.append(line + "\n");
         }
         return result.toString();
     }
@@ -282,12 +282,10 @@ public class CommandExecutor {
 
         String redex = cmd.getArgs()[0];
 
-        if (ignoreCase) {
-            stringToParse = stringToParse.toLowerCase();
-            redex = redex.toLowerCase();
-        }
-
         Pattern pattern = Pattern.compile(redex);
+        if (ignoreCase) {
+            pattern = Pattern.compile(redex, Pattern.CASE_INSENSITIVE);
+        }
         Matcher matcher = pattern.matcher(stringToParse);
         List<String> foundMatches = new ArrayList<String>();
         if (matcher.find()) {
